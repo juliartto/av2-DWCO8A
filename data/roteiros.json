@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "titulo": "Frações e Proporções",
+    "disciplina": "Matemática",
+    "ano": 7,
+    "tema": "Operações com frações",
+    "tempoEstudo": 45,
+    "revisorId": 1,
+    "paginaWikipedia": "Fração",
+    "explicacao": "Uma fração representa partes de um inteiro. O número de baixo, chamado denominador, mostra em quantas partes iguais o inteiro foi dividido. O número de cima, chamado numerador, mostra quantas dessas partes estamos usando. Para somar frações com o mesmo denominador, somamos só os numeradores e mantemos o denominador.",
+    "questoes": [
+      {
+        "pergunta": "Uma barra de chocolate foi dividida em 8 pedaços iguais e João comeu 3. Que fração da barra sobrou?",
+        "resposta": "5/8 da barra."
+      },
+      {
+        "pergunta": "Quanto é 2/5 + 1/5?",
+        "resposta": "3/5."
+      },
+      {
+        "pergunta": "Qual fração é maior, 1/2 ou 1/3?",
+        "resposta": "1/2, porque o inteiro foi dividido em menos partes e cada parte fica maior."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "Célula Animal e Vegetal",
+    "disciplina": "Ciências",
+    "ano": 6,
+    "tema": "Citologia",
+    "tempoEstudo": 30,
+    "revisorId": 2,
+    "paginaWikipedia": "Célula",
+    "explicacao": "A célula é a menor parte de um ser vivo que consegue realizar as funções da vida. As células animais e vegetais têm membrana, citoplasma e núcleo. A célula vegetal também tem parede celular, que deixa a célula mais rígida, e cloroplastos, onde acontece a fotossíntese.",
+    "questoes": [
+      {
+        "pergunta": "Quais são as três partes que aparecem tanto na célula animal quanto na vegetal?",
+        "resposta": "Membrana plasmática, citoplasma e núcleo."
+      },
+      {
+        "pergunta": "Em qual estrutura da célula vegetal acontece a fotossíntese?",
+        "resposta": "No cloroplasto."
+      },
+      {
+        "pergunta": "Qual estrutura deixa a célula vegetal mais rígida e não existe na célula animal?",
+        "resposta": "A parede celular."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "titulo": "Teorema de Pitágoras",
+    "disciplina": "Matemática",
+    "ano": 9,
+    "tema": "Triângulo retângulo",
+    "tempoEstudo": 50,
+    "revisorId": 1,
+    "paginaWikipedia": "Teorema_de_Pitágoras",
+    "explicacao": "Todo triângulo retângulo tem um ângulo de 90 graus. O lado oposto a esse ângulo é o maior e se chama hipotenusa. Os outros dois lados são os catetos. O teorema diz que o quadrado da hipotenusa é igual à soma dos quadrados dos catetos, ou seja, a² = b² + c².",
+    "questoes": [
+      {
+        "pergunta": "Um triângulo retângulo tem catetos de 3 cm e 4 cm. Quanto mede a hipotenusa?",
+        "resposta": "5 cm, porque 3² + 4² = 9 + 16 = 25 e a raiz de 25 é 5."
+      },
+      {
+        "pergunta": "A hipotenusa de um triângulo retângulo mede 10 cm e um dos catetos mede 6 cm. Quanto mede o outro cateto?",
+        "resposta": "8 cm, porque 10² - 6² = 100 - 36 = 64 e a raiz de 64 é 8."
+      },
+      {
+        "pergunta": "Os lados 5, 12 e 13 formam um triângulo retângulo?",
+        "resposta": "Sim, porque 5² + 12² = 25 + 144 = 169, que é igual a 13²."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "titulo": "Substantivos",
+    "disciplina": "Língua Portuguesa",
+    "ano": 6,
+    "tema": "Classes de palavras",
+    "tempoEstudo": 30,
+    "revisorId": 3,
+    "paginaWikipedia": "Substantivo",
+    "explicacao": "Substantivo é a palavra que dá nome a pessoas, animais, objetos, lugares, sentimentos e ideias. Ele é comum quando nomeia qualquer ser da mesma espécie, como cidade ou cachorro. Ele é próprio quando nomeia um ser específico, como Brasil ou Maria. Os substantivos próprios são escritos com letra maiúscula.",
+    "questoes": [
+      {
+        "pergunta": "Na frase \"Lucas visitou o museu com a avó\", quais palavras são substantivos?",
+        "resposta": "Lucas, museu e avó."
+      },
+      {
+        "pergunta": "A palavra \"Paraná\" é um substantivo comum ou próprio?",
+        "resposta": "Próprio, porque nomeia um estado específico."
+      },
+      {
+        "pergunta": "Dê um exemplo de substantivo que nomeia um sentimento.",
+        "resposta": "Alegria, saudade, medo ou amor, por exemplo."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "titulo": "Antigo Egito",
+    "disciplina": "História",
+    "ano": 6,
+    "tema": "Civilizações da Antiguidade",
+    "tempoEstudo": 40,
+    "revisorId": 4,
+    "paginaWikipedia": "Antigo_Egito",
+    "explicacao": "O Antigo Egito foi uma civilização que surgiu às margens do rio Nilo, no norte da África, há mais de 5 mil anos. As cheias do rio deixavam o solo fértil, o que permitia plantar. O governante era o faraó, que era visto como um deus. As pirâmides foram construídas para servir de túmulo para os faraós.",
+    "questoes": [
+      {
+        "pergunta": "Qual rio foi essencial para a vida no Antigo Egito?",
+        "resposta": "O rio Nilo."
+      },
+      {
+        "pergunta": "Por que as cheias do Nilo eram importantes para os egípcios?",
+        "resposta": "Porque deixavam o solo fértil para a agricultura."
+      },
+      {
+        "pergunta": "Para que as pirâmides foram construídas?",
+        "resposta": "Para servir de túmulo para os faraós."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "titulo": "Fases da Lua",
+    "disciplina": "Ciências",
+    "ano": 8,
+    "tema": "Sistema Sol, Terra e Lua",
+    "tempoEstudo": 35,
+    "revisorId": 2,
+    "paginaWikipedia": "Fases_da_Lua",
+    "explicacao": "A Lua não tem luz própria. Ela reflete a luz do Sol. Enquanto gira ao redor da Terra, vemos partes diferentes do lado iluminado, e por isso a Lua parece mudar de forma. Ela passa pelas fases nova, crescente, cheia e minguante em cerca de 29 dias e meio.",
+    "questoes": [
+      {
+        "pergunta": "Por que conseguimos ver a Lua no céu?",
+        "resposta": "Porque ela reflete a luz do Sol."
+      },
+      {
+        "pergunta": "Em qual fase vemos todo o lado da Lua voltado para a Terra iluminado?",
+        "resposta": "Na lua cheia."
+      },
+      {
+        "pergunta": "Quanto tempo a Lua leva, mais ou menos, para passar por todas as fases?",
+        "resposta": "Cerca de 29 dias e meio."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "titulo": "Regiões do Brasil",
+    "disciplina": "Geografia",
+    "ano": 7,
+    "tema": "Território brasileiro",
+    "tempoEstudo": 40,
+    "revisorId": 5,
+    "paginaWikipedia": "Regiões_do_Brasil",
+    "explicacao": "O IBGE divide o Brasil em cinco regiões, que são Norte, Nordeste, Centro-Oeste, Sudeste e Sul. Os estados de uma mesma região têm características parecidas de clima, relevo, economia e população. A região Norte é a maior em área, e a região Sudeste é a que tem mais habitantes.",
+    "questoes": [
+      {
+        "pergunta": "Em quantas regiões o IBGE divide o Brasil?",
+        "resposta": "Cinco."
+      },
+      {
+        "pergunta": "Qual região brasileira tem a maior área?",
+        "resposta": "A região Norte."
+      },
+      {
+        "pergunta": "Em qual região fica o estado do Paraná?",
+        "resposta": "Na região Sul."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "titulo": "Figuras de Linguagem",
+    "disciplina": "Língua Portuguesa",
+    "ano": 8,
+    "tema": "Comparação, metáfora e hipérbole",
+    "tempoEstudo": 35,
+    "revisorId": 3,
+    "paginaWikipedia": "Figura_de_linguagem",
+    "explicacao": "Figuras de linguagem são jeitos de usar as palavras para deixar o texto mais expressivo. Na comparação, ligamos duas ideias com palavras como \"como\" ou \"feito\". Na metáfora, a comparação aparece sem essas palavras. Na hipérbole, exageramos de propósito para dar ênfase.",
+    "questoes": [
+      {
+        "pergunta": "Qual figura de linguagem aparece em \"Ela é forte como um touro\"?",
+        "resposta": "Comparação, porque usa a palavra \"como\"."
+      },
+      {
+        "pergunta": "Qual figura de linguagem aparece em \"Já te falei isso um milhão de vezes\"?",
+        "resposta": "Hipérbole, porque há um exagero."
+      },
+      {
+        "pergunta": "Qual figura de linguagem aparece em \"Aquele menino é uma fera no futebol\"?",
+        "resposta": "Metáfora, porque compara sem usar \"como\"."
+      }
+    ]
+  }
+]

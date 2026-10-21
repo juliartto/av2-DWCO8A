@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "nome": "Carlos Mendes",
+    "disciplina": "Matemática",
+    "escola": "EMEF Central"
+  },
+  {
+    "id": 2,
+    "nome": "Ana Souza",
+    "disciplina": "Ciências",
+    "escola": "EMEF Sul"
+  },
+  {
+    "id": 3,
+    "nome": "Mariana Lopes",
+    "disciplina": "Língua Portuguesa",
+    "escola": "EMEF Norte"
+  },
+  {
+    "id": 4,
+    "nome": "Ricardo Alves",
+    "disciplina": "História",
+    "escola": "EMEF Leste"
+  },
+  {
+    "id": 5,
+    "nome": "Fernanda Rocha",
+    "disciplina": "Geografia",
+    "escola": "EMEF Central"
+  }
+]
