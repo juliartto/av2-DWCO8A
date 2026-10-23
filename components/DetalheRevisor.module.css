@@ -1,0 +1,23 @@
+.container {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--destaque);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alerta {
+  font-weight: 500;
+  color: var(--texto);
+}
+
+.detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.95rem;
+}

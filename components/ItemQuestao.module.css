@@ -1,0 +1,45 @@
+.item {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cabecalho {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.enunciado {
+  font-size: 1rem;
+  color: var(--texto);
+}
+
+.botao {
+  align-self: flex-start;
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid var(--destaque);
+  border-radius: 6px;
+  color: var(--destaque);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.botao:hover {
+  background: var(--destaque);
+  color: #fff;
+}
+
+.resposta {
+  padding: 12px;
+  background: var(--fundo);
+  border-radius: 6px;
+  border-left: 3px solid var(--destaque);
+}
