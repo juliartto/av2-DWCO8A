@@ -3,6 +3,7 @@ import roteiros from "@/data/roteiros.json";
 import professores from "@/data/professores.json";
 import DetalheRevisor from "@/components/DetalheRevisor";
 import ItemQuestao from "@/components/ItemQuestao";
+import QuadroWikipedia from "@/components/QuadroWikipedia";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -74,6 +75,13 @@ export default async function PaginaRoteiro({ params }) {
             ))}
           </div>
         </section>
+      )}
+
+      {roteiro.paginaWikipedia && (
+        <QuadroWikipedia
+          termo={roteiro.paginaWikipedia}
+          paginaWikipedia={roteiro.paginaWikipedia}
+        />
       )}
     </article>
   );
