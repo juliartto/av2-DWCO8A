@@ -56,3 +56,54 @@
 .botao:hover {
   opacity: 0.9;
 }
+
+.feedbackErro {
+  margin-top: 16px;
+  padding: 16px;
+  background: #fdf2f2;
+  border: 1px solid #e02424;
+  border-radius: 6px;
+  color: #9b1c1c;
+}
+
+.feedbackErro h4 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #9b1c1c;
+}
+
+.feedbackErro ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #9b1c1c;
+}
+
+.feedbackSucesso {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f3faf7;
+  border: 1px solid #0e9f6e;
+  border-radius: 6px;
+  color: #03543f;
+}
+
+.feedbackSucesso h4 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #03543f;
+}
+
+.feedbackSucesso p {
+  margin-bottom: 8px;
+  color: #03543f;
+}
+
+.feedbackSucesso ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #03543f;
+}
