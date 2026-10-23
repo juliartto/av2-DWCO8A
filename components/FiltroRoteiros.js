@@ -36,6 +36,7 @@ export default function FiltroRoteiros({
           value={anoSelecionado}
           onChange={onAnoChange}
         >
+          <option value="Todos">Todos</option>
           <option value="6">6º ano</option>
           <option value="7">7º ano</option>
           <option value="8">8º ano</option>
