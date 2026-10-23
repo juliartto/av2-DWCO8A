@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.voltar {
+  align-self: flex-start;
+  color: var(--destaque);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.voltar:hover {
+  text-decoration: underline;
+}
+
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.titulo {
+  font-size: 2rem;
+  color: var(--texto);
+  line-height: 1.2;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.subtitulo {
+  font-size: 1.3rem;
+  color: var(--texto);
+}
+
+.explicacao {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.questoes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.naoEncontrado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  padding: 60px 16px;
+  background: #fff;
+  border: 1px dashed var(--borda);
+  border-radius: 8px;
+}
+
+.naoEncontrado h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0;
+}
