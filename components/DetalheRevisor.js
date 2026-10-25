@@ -1,32 +1,21 @@
 import styles from "./DetalheRevisor.module.css";
 
-export default function DetalheRevisor({
-  nome,
-  disciplina,
-  escola,
-  professor,
-  revisor,
-  ...rest
-}) {
-  const dados = professor || revisor || rest;
-  const nomeProf = nome || dados.nome || "Não informado";
-  const disciplinaProf = disciplina || dados.disciplina || "Não informada";
-  const escolaProf = escola || dados.escola || "Não informada";
-
+export default function DetalheRevisor({ revisor }) {
   return (
     <div className={styles.container}>
       <p className={styles.alerta}>
-        Este roteiro foi gerado por Inteligência Artificial e revisado pelo professor indicado.
+        Este roteiro foi gerado por inteligência artificial e revisado pelo
+        professor abaixo.
       </p>
       <div className={styles.detalhes}>
         <p>
-          <strong>Professor:</strong> {nomeProf}
+          <strong>Professor:</strong> {revisor.nome}
         </p>
         <p>
-          <strong>Disciplina:</strong> {disciplinaProf}
+          <strong>Disciplina:</strong> {revisor.disciplina}
         </p>
         <p>
-          <strong>Escola:</strong> {escolaProf}
+          <strong>Escola:</strong> {revisor.escola}
         </p>
       </div>
     </div>

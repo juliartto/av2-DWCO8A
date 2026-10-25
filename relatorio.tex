@@ -16,7 +16,6 @@
 \titlespacing*{\section}{0pt}{5pt}{3pt}
 
 \setlist[itemize]{leftmargin=12pt,noitemsep,topsep=1pt,parsep=0pt,partopsep=0pt}
-\setlist[enumerate]{leftmargin=12pt,noitemsep,topsep=1pt,parsep=0pt,partopsep=0pt}
 
 \hypersetup{
     colorlinks=true,
@@ -27,67 +26,59 @@
 \begin{document}
 
 \begin{center}
-    {\large \textbf{Relatório Técnico de Implementação -- Parte 2}}\\[2pt]
+    {\large \textbf{Relatório de Execução -- Parte 2}}\\[2pt]
     \textbf{Disciplina:} DWCO8A -- Desenvolvimento Web \quad|\quad \textbf{Projeto:} Roteiros de Estudo\\
     \textbf{Autores:} Julia Romanetto dos Santos e Pedro Henrique Vogt Verolla \quad|\quad \textbf{Data:} 24 de outubro de 2026
 \end{center}
 
 \vspace{-4pt}
 
-\section*{1. Instruções de Execução e Build Estático}
-A aplicação foi construída com Next.js 16 (App Router) e React 19, utilizando CSS Modules nativos sem dependências externas de interface. Os comandos para execução e build são:
+\section*{1. Como executar e gerar o build estático}
+O projeto usa Next.js 16 (App Router), React 19 e CSS Modules. É preciso ter o Node.js instalado.
 \begin{itemize}
-    \item \textbf{Instalação de dependências:} execute \texttt{npm install} na raiz do projeto.
-    \item \textbf{Ambiente de desenvolvimento:} execute \texttt{npm run dev} e acesse \url{http://localhost:3000}.
-    \item \textbf{Exportação estática (Build):} execute \texttt{npm run build}. Com \texttt{output: "export"} configurado em \texttt{next.config.mjs}, o Next.js gera os arquivos HTML/CSS/JS compilados estaticamente na pasta \texttt{out/}.
-    \item \textbf{Execução local do build estático:} execute \texttt{npx serve out} para subir um servidor HTTP local apontando para a pasta gerada, validando o funcionamento sem Node.js em tempo de execução.
+    \item \texttt{npm install} na raiz do projeto para instalar as dependências.
+    \item \texttt{npm run dev} e abrir \url{http://localhost:3000} para rodar em modo de desenvolvimento.
+    \item \texttt{npm run build} para gerar o site estático. Como o \texttt{next.config.mjs} tem \texttt{output: "export"}, os arquivos ficam na pasta \texttt{out/}.
+    \item \texttt{npx serve out} para servir a pasta \texttt{out/} localmente e testar o build.
 \end{itemize}
 
-\section*{2. API Externa Utilizada}
-Foi integrada a API REST pública da Wikipédia em português através do endpoint:\\
-\texttt{https://pt.wikipedia.org/api/rest\_v1/page/summary/\{tema\}}\\
-A requisição não exige chave de autenticação (API pública do Wikimedia Foundation). No componente cliente \texttt{QuadroWikipedia}, a busca é disparada via \texttt{fetch} dentro de um \texttt{useEffect} usando o termo definido no roteiro. O ciclo de vida trata os três cenários de forma assíncrona e desacoplada:
-\begin{itemize}
-    \item \textbf{Carregamento:} exibe a mensagem textual \textit{"Carregando texto de apoio da Wikipédia..."} enquanto a requisição é processada.
-    \item \textbf{Sucesso:} renderiza o resumo (\texttt{extract}) retornado e o link externo \textit{"Ler mais na Wikipédia"}.
-    \item \textbf{Falha ou Erro de Rede:} caso \texttt{!res.ok} ou ocorra queda de conexão, exibe um aviso amigável explicando que o texto complementar não pôde ser carregado no momento, mas que o roteiro pode ser utilizado normalmente.
-    \item \textbf{Não bloqueio:} a chamada ocorre no cliente e de modo isolado no rodapé da rota \texttt{/roteiros/[id]}, sem retardar a exibição do título, revisor, explicação principal ou questões.
-\end{itemize}
+\section*{2. API externa}
+Usamos a API REST da Wikipédia em português, que é pública e não precisa de chave:
+\texttt{https://pt.wikipedia.org/api/rest\_v1/page/summary/\{página\}}.
+Cada roteiro tem o campo \texttt{paginaWikipedia} no JSON, e o componente \texttt{QuadroWikipedia} faz o \texttt{fetch} dentro de um \texttt{useEffect}. Enquanto a resposta não chega aparece uma mensagem de carregamento; se der certo, mostramos o resumo e um link para o artigo; se a requisição falhar (sem internet ou status de erro), aparece um aviso dizendo que o texto de apoio não carregou. Como o quadro fica no fim da página e é carregado no navegador, o resto do roteiro aparece normalmente mesmo quando a API falha.
 
-\section*{3. Plano vs. Realizado}
-A tabela abaixo compara o planejamento inicial definido na Parte 1 com a execução registrada nos commits do repositório:
-
+\section*{3. Plano vs. realizado}
 \vspace{2pt}
 \noindent
 \begin{tabularx}{\textwidth}{c X c c c}
 \toprule
-\textbf{Etapa} & \textbf{Descrição do Escopo} & \textbf{Planejado} & \textbf{Realizado} & \textbf{Responsável} \\
+\textbf{Etapa} & \textbf{O que foi feito} & \textbf{Planejado} & \textbf{Realizado} & \textbf{Responsável} \\
 \midrule
-1 & Setup Next.js, ESLint, jsconfig e estrutura base & 19/10 & 20/10 & Julia \\
-2 & Estruturação dos dados (\texttt{roteiros.json} e \texttt{professores.json}) & 20/10 & 20/10 & Julia \\
-3 & Componente \texttt{Header} e navegação básica entre páginas & 20/10 & 20/10 & Julia \\
-4 & Criação do componente \texttt{CardRoteiro} & 21/10 & 23/10 & Pedro \\
-5 & Criação do componente \texttt{FiltroRoteiros} & 21/10 & 23/10 & Pedro \\
-6 & Listagem dinâmica com estado e filtros na Home (\texttt{app/page.js}) & 22/10 & 23/10 & Pedro \\
-7 & Rota dinâmica \texttt{/roteiros/[id]} e componente \texttt{DetalheRevisor} & 22/10 & 23/10 & Pedro \\
-8 & Componente \texttt{ItemQuestao} com controle de gabarito (\texttt{useState}) & 23/10 & 23/10 & Pedro \\
-9 & Componente \texttt{QuadroWikipedia} consumindo API REST externa & 23/10 & 23/10 & Pedro \\
-10 & Rota \texttt{/solicitar} e \texttt{FormularioSolicitacao} com inputs controlados & 24/10 & 23/10 & Pedro \\
-11 & Validação de regras de negócio no formulário e feedback visual & 24/10 & 23/10 & Pedro \\
-12 & Ajuste do build estático (\texttt{generateStaticParams} com id \texttt{'999'}) & 25/10 & 23/10 & Pedro \\
-13 & Testes gerais, verificação do build e elaboração deste relatório & 25/10 & 24/10 & Pedro e Julia \\
+1 & Criação do projeto Next.js, ESLint e estrutura de pastas & 19/10 & 20/10 & Julia \\
+2 & Dados em JSON (\texttt{roteiros.json} e \texttt{professores.json}) & 20/10 & 20/10 & Julia \\
+3 & Componente \texttt{Header} e navegação & 20/10 & 20/10 & Julia \\
+4 & Componente \texttt{CardRoteiro} & 21/10 & 23/10 & Pedro \\
+5 & Componente \texttt{FiltroRoteiros} & 21/10 & 23/10 & Pedro \\
+6 & Listagem com filtros na página inicial & 22/10 & 23/10 & Pedro \\
+7 & Rota dinâmica \texttt{/roteiros/[id]} e \texttt{DetalheRevisor} & 22/10 & 23/10 & Pedro \\
+8 & Componente \texttt{ItemQuestao} (mostrar/ocultar resposta) & 23/10 & 23/10 & Pedro \\
+9 & Componente \texttt{QuadroWikipedia} com a API externa & 23/10 & 23/10 & Pedro \\
+10 & Rota \texttt{/solicitar} e \texttt{FormularioSolicitacao} & 24/10 & 23/10 & Pedro \\
+11 & Validação das regras do pedido e mensagens de retorno & 24/10 & 23/10 & Pedro \\
+12 & Revisão do código e página 404 para roteiro inexistente & 25/10 & 24/10 & Julia \\
+13 & Testes, build estático e este relatório & 25/10 & 24/10 & Pedro e Julia \\
 \bottomrule
 \end{tabularx}
 
 \vspace{1pt}
 
-\section*{4. Mudanças em relação ao Plano e ao Protótipo}
+\section*{4. Mudanças em relação ao plano e ao protótipo}
 \begin{itemize}
-    \item \textbf{Adiantamento do Cronograma:} as etapas de 4 a 12, planejadas para ocorrerem entre 21/10 e 25/10, foram concentradas e concluídas em 23/10 por Pedro. A antecipação permitiu validar precocemente o build estático e os testes da API, liberando o dia 24/10 exclusivamente para revisão e relatório.
-    \item \textbf{Opção "Todos" no Filtro de Anos:} o protótipo inicial previa apenas opções rígidas de 6º a 9º ano. Adicionou-se a opção \texttt{"Todos"} no \texttt{<select>} de anos para permitir a visualização irrestrita dos roteiros por disciplina sem forçar a escolha de uma série escolar específica.
-    \item \textbf{Tratamento de Roteiro Inexistente sem \texttt{notFound()}:} para atender à exportação estática com a rota de teste \texttt{\{ id: '999' \}}, substituiu-se o redirecionamento 404 por uma renderização amigável na própria página com mensagem \textit{"Roteiro não encontrado"} e link de retorno para \texttt{/}.
-    \item \textbf{Validação Personalizada no Formulário (\texttt{noValidate}):} utilizou-se \texttt{noValidate} no elemento \texttt{<form>} para desabilitar balões nativos do navegador e permitir o acúmulo de mensagens claras em uma caixa de feedback em vermelho, conforme os requisitos pedagógicos.
-    \item \textbf{Ajuste de Hidratação (\texttt{suppressHydrationWarning}):} adicionado ao \texttt{<body>} em \texttt{app/layout.js} para neutralizar discrepâncias de atributos injetados por extensões do navegador (como o ColorZilla) em ambiente de desenvolvimento.
+    \item \textbf{Cronograma:} as etapas 4 a 11 ficaram todas para o dia 23/10, porque o Pedro conseguiu fazer tudo de uma vez. Com isso sobrou o dia 24/10 para revisar, testar o build e escrever o relatório.
+    \item \textbf{Opção ``Todos'' nos filtros:} no protótipo o filtro de ano só tinha 6º a 9º ano. Colocamos ``Todos'' (e ``Todas'' na disciplina) para o aluno poder ver todos os roteiros sem escolher um ano.
+    \item \textbf{Roteiro inexistente:} a primeira versão gerava uma página fixa para o id \texttt{999} só para testar. Trocamos por \texttt{dynamicParams = false} com \texttt{notFound()} e uma página \texttt{not-found.js}, que vira o \texttt{404.html} do build. Assim qualquer id que não existe mostra a mensagem de roteiro não encontrado.
+    \item \textbf{Validação do formulário:} usamos \texttt{noValidate} no \texttt{<form>} para o navegador não mostrar os balões dele, e listamos todos os erros juntos numa caixa abaixo do botão.
+    \item \textbf{\texttt{suppressHydrationWarning} no \texttt{<body>}:} uma extensão do navegador (ColorZilla) adicionava atributos no \texttt{<body>} e gerava aviso de hidratação no modo de desenvolvimento.
 \end{itemize}
 
 \end{document}

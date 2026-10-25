@@ -7,62 +7,41 @@ import FiltroRoteiros from "@/components/FiltroRoteiros";
 import CardRoteiro from "@/components/CardRoteiro";
 import styles from "./page.module.css";
 
-const disciplinasDisponiveis = [
-  ...new Set(roteiros.map((r) => r.disciplina)),
-];
+const disciplinas = [...new Set(roteiros.map((r) => r.disciplina))];
 
 export default function Home() {
-  const [disciplinaSelecionada, setDisciplinaSelecionada] = useState("Todas");
-  const [anoSelecionado, setAnoSelecionado] = useState("Todos");
+  const [disciplina, setDisciplina] = useState("Todas");
+  const [ano, setAno] = useState("Todos");
 
-  const roteirosFiltrados = roteiros.filter((roteiro) => {
-    const matchDisciplina =
-      disciplinaSelecionada === "Todas" ||
-      !disciplinaSelecionada ||
-      roteiro.disciplina === disciplinaSelecionada;
-
-    const matchAno =
-      anoSelecionado === "Todos" ||
-      anoSelecionado === "Todas" ||
-      !anoSelecionado ||
-      String(roteiro.ano) === String(anoSelecionado);
-
-    return matchDisciplina && matchAno;
-  });
+  const roteirosFiltrados = roteiros.filter(
+    (r) =>
+      (disciplina === "Todas" || r.disciplina === disciplina) &&
+      (ano === "Todos" || r.ano === Number(ano))
+  );
 
   return (
     <section className={styles.container}>
       <h1 className={styles.titulo}>Roteiros disponíveis</h1>
 
       <FiltroRoteiros
-        disciplinaSelecionada={disciplinaSelecionada}
-        anoSelecionado={anoSelecionado}
-        disciplinas={disciplinasDisponiveis}
-        onDisciplinaChange={(e) =>
-          setDisciplinaSelecionada(e.target ? e.target.value : e)
-        }
-        onAnoChange={(e) =>
-          setAnoSelecionado(e.target ? e.target.value : e)
-        }
+        disciplinas={disciplinas}
+        disciplina={disciplina}
+        ano={ano}
+        onDisciplinaChange={setDisciplina}
+        onAnoChange={setAno}
       />
 
       {roteirosFiltrados.length === 0 ? (
         <p className={styles.mensagemVazia}>Nenhum roteiro foi encontrado.</p>
       ) : (
         <div className={styles.grade}>
-          {roteirosFiltrados.map((roteiro) => {
-            const professor = professores.find(
-              (p) => p.id === roteiro.revisorId
-            );
-            return (
-              <CardRoteiro
-                key={roteiro.id}
-                roteiro={roteiro}
-                revisor={professor}
-                professor={professor}
-              />
-            );
-          })}
+          {roteirosFiltrados.map((roteiro) => (
+            <CardRoteiro
+              key={roteiro.id}
+              roteiro={roteiro}
+              revisor={professores.find((p) => p.id === roteiro.revisorId)}
+            />
+          ))}
         </div>
       )}
     </section>

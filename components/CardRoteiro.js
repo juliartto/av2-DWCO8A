@@ -1,33 +1,29 @@
 import Link from "next/link";
 import styles from "./CardRoteiro.module.css";
 
-export default function CardRoteiro({ roteiro, revisor, professor, ...rest }) {
-  const dadosRoteiro = roteiro || rest;
-  const dadosRevisor = revisor || professor || dadosRoteiro.revisor || {};
-
-  const { id, titulo, disciplina, ano, tempoEstudo, tema } = dadosRoteiro;
-  const { nome, escola } = dadosRevisor;
-
+export default function CardRoteiro({ roteiro, revisor }) {
   return (
     <article className={styles.card}>
-      <h2 className={styles.titulo}>{titulo}</h2>
+      <h2 className={styles.titulo}>{roteiro.titulo}</h2>
       <p>
-        <strong>Disciplina:</strong> {disciplina}
+        <strong>Disciplina:</strong> {roteiro.disciplina}
       </p>
       <p>
-        <strong>Ano escolar:</strong> {ano}º ano
+        <strong>Ano escolar:</strong> {roteiro.ano}º ano
       </p>
       <p>
-        <strong>Tema:</strong> {tema}
+        <strong>Tema:</strong> {roteiro.tema}
       </p>
       <p>
-        <strong>Tempo estimado de estudo:</strong> {tempoEstudo} min
+        <strong>Tempo estimado de estudo:</strong> {roteiro.tempoEstudo} min
       </p>
-      <p>
-        <strong>Revisor:</strong> {nome || "Não informado"} {escola ? `(${escola})` : ""}
-      </p>
-      <Link href={`/roteiros/${id}`} className={styles.link}>
-        Ver Roteiro
+      {revisor && (
+        <p>
+          <strong>Revisor:</strong> {revisor.nome} ({revisor.escola})
+        </p>
+      )}
+      <Link href={`/roteiros/${roteiro.id}`} className={styles.link}>
+        Ver roteiro
       </Link>
     </article>
   );

@@ -3,158 +3,78 @@
 import { useState } from "react";
 import styles from "./FormularioSolicitacao.module.css";
 
-export default function FormularioSolicitacao({
-  disciplinas = [],
-  anos = [],
-  disciplinasDisponiveis,
-  anosDisponiveis,
-  onSubmit,
-}) {
-  const listaDisciplinas = disciplinasDisponiveis || disciplinas || [];
-  const listaAnos = anosDisponiveis || anos || [6, 7, 8, 9];
+const camposIniciais = {
+  nome: "",
+  email: "",
+  disciplina: "",
+  ano: "",
+  tema: "",
+  numeroQuestoes: "",
+  dataUso: "",
+};
 
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [disciplina, setDisciplina] = useState("");
-  const [ano, setAno] = useState("");
-  const [tema, setTema] = useState("");
-  const [numeroQuestoes, setNumeroQuestoes] = useState("");
-  const [dataUso, setDataUso] = useState("");
+function validar(campos) {
+  const erros = [];
 
+  if (!campos.nome.trim()) erros.push("Informe o nome do professor.");
+
+  if (!/^[^\s@]+@escola\.educa\.gov\.br$/i.test(campos.email.trim())) {
+    erros.push("O e-mail institucional deve terminar em @escola.educa.gov.br.");
+  }
+
+  if (!campos.disciplina) erros.push("Selecione a disciplina.");
+  if (!campos.ano) erros.push("Selecione o ano escolar.");
+  if (!campos.tema.trim()) erros.push("Informe o tema do roteiro.");
+
+  const qtd = Number(campos.numeroQuestoes);
+  if (!campos.numeroQuestoes || qtd < 3 || qtd > 10) {
+    erros.push("O número de questões deve ser entre 3 e 10.");
+  }
+
+  const dataMinima = new Date();
+  dataMinima.setHours(0, 0, 0, 0);
+  dataMinima.setDate(dataMinima.getDate() + 7);
+  const dataUso = new Date(campos.dataUso + "T00:00");
+  if (!campos.dataUso || dataUso < dataMinima) {
+    erros.push("A data de uso precisa ser daqui a pelo menos 7 dias.");
+  }
+
+  return erros;
+}
+
+export default function FormularioSolicitacao({ disciplinas, anos }) {
+  const [campos, setCampos] = useState(camposIniciais);
   const [erros, setErros] = useState([]);
-  const [sucesso, setSucesso] = useState(null);
+  const [pedido, setPedido] = useState(null);
 
-  const formatarData = (dataStr) => {
-    if (!dataStr) return "";
-    const partes = dataStr.split("-");
-    if (partes.length === 3) {
-      return `${partes[2]}/${partes[1]}/${partes[0]}`;
-    }
-    return dataStr;
-  };
+  function alterar(e) {
+    setCampos({ ...campos, [e.target.name]: e.target.value });
+  }
 
-  const handleSubmit = (e) => {
+  function enviar(e) {
     e.preventDefault();
-    setSucesso(null);
-
-    const errosEncontrados = [];
-
-    // 1. Campos vazios
-    if (!nome.trim()) {
-      errosEncontrados.push("O campo 'Nome do professor' é obrigatório.");
-    }
-
-    if (!email.trim()) {
-      errosEncontrados.push("O campo 'E-mail institucional' é obrigatório.");
-    } else {
-      // 2. E-mail que não termine em @escola.educa.gov.br ou não tenha usuário antes do @
-      const emailLimpo = email.trim().toLowerCase();
-      const partes = emailLimpo.split("@");
-
-      if (
-        !emailLimpo.endsWith("@escola.educa.gov.br") ||
-        partes.length !== 2 ||
-        !partes[0].trim()
-      ) {
-        errosEncontrados.push(
-          "O e-mail deve ter um usuário antes do @ e terminar com @escola.educa.gov.br."
-        );
-      }
-    }
-
-    if (!disciplina.trim()) {
-      errosEncontrados.push("O campo 'Disciplina' é obrigatório.");
-    }
-
-    if (!String(ano).trim()) {
-      errosEncontrados.push("O campo 'Ano escolar' é obrigatório.");
-    }
-
-    if (!tema.trim()) {
-      errosEncontrados.push("O campo 'Tema do roteiro' é obrigatório.");
-    }
-
-    // 3. Quantidade de questões menor que 3 ou maior que 10
-    if (!String(numeroQuestoes).trim()) {
-      errosEncontrados.push("O campo 'Número de questões' é obrigatório.");
-    } else {
-      const qtd = Number(numeroQuestoes);
-      if (isNaN(qtd) || qtd < 3 || qtd > 10) {
-        errosEncontrados.push(
-          "A quantidade de questões não pode ser menor que 3 nem maior que 10."
-        );
-      }
-    }
-
-    // 4. Data de uso inferior a 7 dias corridos a partir da data de hoje
-    if (!dataUso.trim()) {
-      errosEncontrados.push("O campo 'Data de uso' é obrigatório.");
-    } else {
-      const [anoUso, mesUso, diaUso] = dataUso.split("-").map(Number);
-      const dataEscolhida = new Date(anoUso, mesUso - 1, diaUso);
-
-      const hoje = new Date();
-      hoje.setHours(0, 0, 0, 0);
-
-      const dataMinima = new Date(hoje);
-      dataMinima.setDate(dataMinima.getDate() + 7);
-
-      if (isNaN(dataEscolhida.getTime()) || dataEscolhida < dataMinima) {
-        errosEncontrados.push(
-          "A data de uso não pode ser inferior a 7 dias corridos a partir de hoje."
-        );
-      }
-    }
+    const errosEncontrados = validar(campos);
+    setErros(errosEncontrados);
 
     if (errosEncontrados.length > 0) {
-      setErros(errosEncontrados);
+      setPedido(null);
       return;
     }
 
-    // Confirmação de sucesso e resumo do pedido
-    setErros([]);
-    setSucesso({
-      nome,
-      email,
-      disciplina,
-      ano,
-      tema,
-      numeroQuestoes,
-      dataUso,
-    });
-
-    if (onSubmit) {
-      onSubmit({
-        nome,
-        email,
-        disciplina,
-        ano,
-        tema,
-        numeroQuestoes,
-        dataUso,
-      });
-    }
-
-    // Limpa os campos
-    setNome("");
-    setEmail("");
-    setDisciplina("");
-    setAno("");
-    setTema("");
-    setNumeroQuestoes("");
-    setDataUso("");
-  };
+    setPedido(campos);
+    setCampos(camposIniciais);
+  }
 
   return (
-    <form className={styles.formulario} onSubmit={handleSubmit} noValidate>
+    <form className={styles.formulario} onSubmit={enviar} noValidate>
       <div className={styles.campo}>
         <label htmlFor="nome">Nome do professor</label>
         <input
           type="text"
           id="nome"
           name="nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          value={campos.nome}
+          onChange={alterar}
         />
       </div>
 
@@ -164,8 +84,9 @@ export default function FormularioSolicitacao({
           type="email"
           id="email"
           name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="nome@escola.educa.gov.br"
+          value={campos.email}
+          onChange={alterar}
         />
       </div>
 
@@ -174,11 +95,11 @@ export default function FormularioSolicitacao({
         <select
           id="disciplina"
           name="disciplina"
-          value={disciplina}
-          onChange={(e) => setDisciplina(e.target.value)}
+          value={campos.disciplina}
+          onChange={alterar}
         >
-          <option value="">Selecione uma disciplina</option>
-          {listaDisciplinas.map((d) => (
+          <option value="">Selecione</option>
+          {disciplinas.map((d) => (
             <option key={d} value={d}>
               {d}
             </option>
@@ -188,27 +109,13 @@ export default function FormularioSolicitacao({
 
       <div className={styles.campo}>
         <label htmlFor="ano">Ano escolar</label>
-        <select
-          id="ano"
-          name="ano"
-          value={ano}
-          onChange={(e) => setAno(e.target.value)}
-        >
-          <option value="">Selecione o ano escolar</option>
-          {listaAnos.map((a) => {
-            const val = typeof a === "object" ? a.value : a;
-            const label =
-              typeof a === "object"
-                ? a.label
-                : String(a).includes("ano")
-                ? a
-                : `${a}º ano`;
-            return (
-              <option key={val} value={val}>
-                {label}
-              </option>
-            );
-          })}
+        <select id="ano" name="ano" value={campos.ano} onChange={alterar}>
+          <option value="">Selecione</option>
+          {anos.map((a) => (
+            <option key={a} value={a}>
+              {a}º ano
+            </option>
+          ))}
         </select>
       </div>
 
@@ -218,32 +125,32 @@ export default function FormularioSolicitacao({
           type="text"
           id="tema"
           name="tema"
-          value={tema}
-          onChange={(e) => setTema(e.target.value)}
+          value={campos.tema}
+          onChange={alterar}
         />
       </div>
 
       <div className={styles.campo}>
-        <label htmlFor="numeroQuestoes">Número de questões</label>
+        <label htmlFor="numeroQuestoes">Número de questões (3 a 10)</label>
         <input
           type="number"
           id="numeroQuestoes"
           name="numeroQuestoes"
-          min="1"
-          max="20"
-          value={numeroQuestoes}
-          onChange={(e) => setNumeroQuestoes(e.target.value)}
+          min="3"
+          max="10"
+          value={campos.numeroQuestoes}
+          onChange={alterar}
         />
       </div>
 
       <div className={styles.campo}>
-        <label htmlFor="dataUso">Data de uso</label>
+        <label htmlFor="dataUso">Data em que vai usar o roteiro</label>
         <input
           type="date"
           id="dataUso"
           name="dataUso"
-          value={dataUso}
-          onChange={(e) => setDataUso(e.target.value)}
+          value={campos.dataUso}
+          onChange={alterar}
         />
       </div>
 
@@ -253,43 +160,41 @@ export default function FormularioSolicitacao({
 
       {erros.length > 0 && (
         <div className={styles.feedbackErro} role="alert">
-          <h4>Erros encontrados:</h4>
+          <h4>Corrija os campos abaixo:</h4>
           <ul>
-            {erros.map((erro, index) => (
-              <li key={index}>{erro}</li>
+            {erros.map((erro) => (
+              <li key={erro}>{erro}</li>
             ))}
           </ul>
         </div>
       )}
 
-      {sucesso && (
+      {pedido && (
         <div className={styles.feedbackSucesso} role="status">
-          <h4>Solicitação enviada com sucesso!</h4>
-          <p>Confira o resumo do seu pedido:</p>
+          <h4>Pedido registrado!</h4>
+          <p>Resumo do pedido:</p>
           <ul>
             <li>
-              <strong>Professor:</strong> {sucesso.nome}
+              <strong>Professor:</strong> {pedido.nome}
             </li>
             <li>
-              <strong>E-mail:</strong> {sucesso.email}
+              <strong>E-mail:</strong> {pedido.email}
             </li>
             <li>
-              <strong>Disciplina:</strong> {sucesso.disciplina}
+              <strong>Disciplina:</strong> {pedido.disciplina}
             </li>
             <li>
-              <strong>Ano escolar:</strong>{" "}
-              {String(sucesso.ano).includes("ano")
-                ? sucesso.ano
-                : `${sucesso.ano}º ano`}
+              <strong>Ano escolar:</strong> {pedido.ano}º ano
             </li>
             <li>
-              <strong>Tema do roteiro:</strong> {sucesso.tema}
+              <strong>Tema:</strong> {pedido.tema}
             </li>
             <li>
-              <strong>Número de questões:</strong> {sucesso.numeroQuestoes}
+              <strong>Número de questões:</strong> {pedido.numeroQuestoes}
             </li>
             <li>
-              <strong>Data de uso:</strong> {formatarData(sucesso.dataUso)}
+              <strong>Data de uso:</strong>{" "}
+              {pedido.dataUso.split("-").reverse().join("/")}
             </li>
           </ul>
         </div>

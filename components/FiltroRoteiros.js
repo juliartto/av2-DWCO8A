@@ -1,29 +1,25 @@
 import styles from "./FiltroRoteiros.module.css";
 
 export default function FiltroRoteiros({
-  disciplinaSelecionada,
-  anoSelecionado,
-  disciplinas = [],
-  disciplinasDisponiveis,
-  listaDisciplinas,
+  disciplinas,
+  disciplina,
+  ano,
   onDisciplinaChange,
   onAnoChange,
 }) {
-  const lista = disciplinasDisponiveis || listaDisciplinas || disciplinas || [];
-
   return (
     <div className={styles.filtros}>
       <div className={styles.campo}>
         <label htmlFor="disciplina">Disciplina</label>
         <select
           id="disciplina"
-          value={disciplinaSelecionada}
-          onChange={onDisciplinaChange}
+          value={disciplina}
+          onChange={(e) => onDisciplinaChange(e.target.value)}
         >
           <option value="Todas">Todas</option>
-          {lista.map((disciplina) => (
-            <option key={disciplina} value={disciplina}>
-              {disciplina}
+          {disciplinas.map((d) => (
+            <option key={d} value={d}>
+              {d}
             </option>
           ))}
         </select>
@@ -33,8 +29,8 @@ export default function FiltroRoteiros({
         <label htmlFor="ano">Ano</label>
         <select
           id="ano"
-          value={anoSelecionado}
-          onChange={onAnoChange}
+          value={ano}
+          onChange={(e) => onAnoChange(e.target.value)}
         >
           <option value="Todos">Todos</option>
           <option value="6">6º ano</option>

@@ -73,21 +73,3 @@
   flex-direction: column;
   gap: 16px;
 }
-
-.naoEncontrado {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 16px;
-  padding: 60px 16px;
-  background: #fff;
-  border: 1px dashed var(--borda);
-  border-radius: 8px;
-}
-
-.naoEncontrado h1 {
-  font-size: 1.8rem;
-  margin-bottom: 0;
-}
